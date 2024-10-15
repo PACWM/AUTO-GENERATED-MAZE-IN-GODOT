@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=3 uid="uid://bnkdd23vjfrgh"]
+
+[ext_resource type="PackedScene" uid="uid://dpvq0mulg6flc" path="res://player.tscn" id="1_q2p5f"]
+[ext_resource type="Script" path="res://floor.gd" id="3_onm7i"]
+[ext_resource type="Script" path="res://navigation_region_3d.gd" id="3_qruca"]
+[ext_resource type="Script" path="res://walls_generator.gd" id="4_56k1n"]
+[ext_resource type="Script" path="res://walls.gd" id="4_ldya3"]
+[ext_resource type="Script" path="res://navigation_agent_3d.gd" id="4_qyns4"]
+[ext_resource type="Script" path="res://gui.gd" id="5_5tsee"]
+[ext_resource type="Script" path="res://camera_3d.gd" id="6_1n7uy"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_lfx6m"]
+vertices = PackedVector3Array(-23.5, 1, -23.5, -23.5, 1, 23.5, 23.5, 1, 23.5, 23.5, 1, -23.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+agent_max_climb = 0.0
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2jtmb"]
+sky_curve = 0.227357
+sky_energy_multiplier = 1.79
+
+[sub_resource type="Sky" id="Sky_a1ynx"]
+sky_material = SubResource("ProceduralSkyMaterial_2jtmb")
+radiance_size = 1
+
+[sub_resource type="Environment" id="Environment_2jh48"]
+background_mode = 2
+sky = SubResource("Sky_a1ynx")
+
+[node name="main" type="Node3D"]
+
+[node name="NAV" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_lfx6m")
+script = ExtResource("3_qruca")
+
+[node name="floor" type="CSGBox3D" parent="NAV"]
+process_priority = -1
+use_collision = true
+size = Vector3(48, 1, 48)
+script = ExtResource("3_onm7i")
+
+[node name="player" parent="." instance=ExtResource("1_q2p5f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="player"]
+path_desired_distance = 0.1
+target_desired_distance = 0.1
+path_max_distance = 1000.01
+radius = 100.0
+debug_enabled = true
+script = ExtResource("4_qyns4")
+
+[node name="light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 0)
+shadow_enabled = true
+directional_shadow_mode = 0
+
+[node name="walls_generator_index" type="Node3D" parent="."]
+process_priority = 1
+script = ExtResource("4_56k1n")
+
+[node name="Timer" type="Timer" parent="walls_generator_index"]
+wait_time = 0.05
+one_shot = true
+
+[node name="walls_positions" type="Node3D" parent="."]
+process_priority = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -24)
+script = ExtResource("4_ldya3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 24.9671, 0)
+fov = 90.0
+script = ExtResource("6_1n7uy")
+
+[node name="GUI" type="Control" parent="Camera3D"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+script = ExtResource("5_5tsee")
+
+[node name="ColorRect" type="ColorRect" parent="Camera3D/GUI"]
+layout_mode = 0
+offset_right = 383.0
+offset_bottom = 113.0
+color = Color(0, 0, 0, 1)
+
+[node name="score" type="RichTextLabel" parent="Camera3D/GUI"]
+layout_mode = 0
+offset_left = -1.99999
+offset_top = -21.0
+offset_right = 197.0
+offset_bottom = 19.0
+scale = Vector2(5, 5)
+bbcode_enabled = true
+text = "punti: 10"
+
+[node name="target" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2jh48")
+
+[connection signal="timeout" from="walls_generator_index/Timer" to="walls_generator_index" method="_on_timer_timeout"]

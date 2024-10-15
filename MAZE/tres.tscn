@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://ggy2btmhg2bh"]
+
+[ext_resource type="Script" path="res://tres.gd" id="1_exipk"]
+[ext_resource type="Script" path="res://static_body_3d.gd" id="2_bckyb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_md7h7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_eu5d2"]
+material = SubResource("StandardMaterial3D_md7h7")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j417r"]
+size = Vector3(2, 2, 2)
+
+[node name="tres" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_eu5d2")
+script = ExtResource("1_exipk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+script = ExtResource("2_bckyb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_j417r")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00406, -1.00204, 0.993673)
+height = 2.0
+vertices = PackedVector3Array(-2, 0, 0, -2, 0, -2, 0, 0, -2, 0, 0, 0)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+use_3d_avoidance = true

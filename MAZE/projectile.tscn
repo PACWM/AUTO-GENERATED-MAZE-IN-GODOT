@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwfy33laafmvo"]
+
+[ext_resource type="Script" path="res://projectile.gd" id="1_sdgfr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gimls"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o2lml"]
+material = SubResource("StandardMaterial3D_gimls")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cw0rj"]
+
+[node name="projectile" type="CharacterBody3D"]
+top_level = true
+script = ExtResource("1_sdgfr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_o2lml")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_cw0rj")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

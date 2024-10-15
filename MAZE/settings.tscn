@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=3 uid="uid://cjmdx0amss6lq"]
+
+[ext_resource type="Script" path="res://settings.gd" id="1_17gxr"]
+[ext_resource type="PackedScene" uid="uid://gfdikyg7pmgn" path="res://data_read.tscn" id="1_88mpc"]
+[ext_resource type="Script" path="res://up.gd" id="3_ep51h"]
+[ext_resource type="Script" path="res://down.gd" id="4_ymls3"]
+[ext_resource type="Script" path="res://left.gd" id="5_0tlh6"]
+[ext_resource type="Script" path="res://right.gd" id="6_2yu3a"]
+[ext_resource type="Script" path="res://complete.gd" id="7_vlxqv"]
+[ext_resource type="Script" path="res://restart.gd" id="8_bdnat"]
+[ext_resource type="Script" path="res://pause.gd" id="9_p0v4n"]
+[ext_resource type="Script" path="res://shot_button.gd" id="10_fbnhb"]
+
+[node name="settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_17gxr")
+
+[node name="data" parent="." instance=ExtResource("1_88mpc")]
+
+[node name="text" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_right = 1157.0
+offset_bottom = 650.0
+mouse_force_pass_scroll_events = false
+theme_override_font_sizes/normal_font_size = 60
+text = "up
+down
+left
+right
+complete
+restart
+pause
+shot"
+scroll_active = false
+
+[node name="buttons" type="BoxContainer" parent="text"]
+layout_mode = 0
+offset_left = 288.0
+offset_right = 531.0
+offset_bottom = 646.0
+theme_override_constants/separation = 34
+alignment = 1
+vertical = true
+
+[node name="up" type="Button" parent="text/buttons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("3_ep51h")
+
+[node name="down" type="Button" parent="text/buttons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("4_ymls3")
+
+[node name="left" type="Button" parent="text/buttons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("5_0tlh6")
+
+[node name="right" type="Button" parent="text/buttons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("6_2yu3a")
+
+[node name="complete" type="Button" parent="text/buttons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("7_vlxqv")
+
+[node name="restart" type="Button" parent="text/buttons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("8_bdnat")
+
+[node name="pause" type="Button" parent="text/buttons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("9_p0v4n")
+
+[node name="shot" type="Button" parent="text/buttons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+script = ExtResource("10_fbnhb")
+
+[connection signal="pressed" from="text/buttons/up" to="text/buttons/up" method="_on_pressed"]
+[connection signal="pressed" from="text/buttons/down" to="text/buttons/down" method="_on_pressed"]
+[connection signal="pressed" from="text/buttons/left" to="text/buttons/left" method="_on_pressed"]
+[connection signal="pressed" from="text/buttons/right" to="text/buttons/right" method="_on_pressed"]
+[connection signal="pressed" from="text/buttons/complete" to="text/buttons/complete" method="_on_pressed"]
+[connection signal="pressed" from="text/buttons/restart" to="text/buttons/restart" method="_on_pressed"]
+[connection signal="pressed" from="text/buttons/pause" to="text/buttons/pause" method="_on_pressed"]
+[connection signal="pressed" from="text/buttons/shot" to="text/buttons/shot" method="_on_pressed"]

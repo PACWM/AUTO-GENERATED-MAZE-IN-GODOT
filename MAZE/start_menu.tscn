@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvfjikgk32tw1"]
+
+[ext_resource type="Script" path="res://start_menu.gd" id="1_d2n0r"]
+
+[node name="start_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d2n0r")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 452.0
+offset_top = 222.0
+offset_right = 647.0
+offset_bottom = 271.0
+text = "start"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 455.0
+offset_top = 347.0
+offset_right = 648.0
+offset_bottom = 396.0
+text = "impostazioni"
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 455.0
+offset_top = 462.0
+offset_right = 648.0
+offset_bottom = 511.0
+text = "esci
+"
+
+[node name="Button4" type="Button" parent="."]
+layout_mode = 0
+offset_left = 962.0
+offset_top = 591.0
+offset_right = 1152.0
+offset_bottom = 643.0
+text = "statistiche"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Button4" to="." method="_on_button_4_pressed"]

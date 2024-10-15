@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://gfdikyg7pmgn"]
+
+[ext_resource type="Script" path="res://data_read.gd" id="1_wjmud"]
+
+[node name="data_read" type="Node"]
+script = ExtResource("1_wjmud")
